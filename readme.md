@@ -4,7 +4,7 @@
 
 Here is the BOM for this project: [BOM Charybdis 4x6 Wireless](/docs/bom/readme.md)
 
-![Wireless Keyboard](/docs/picture/wireless-charybdis.jpg)
+![Wireless Keyboard](/docs/picture/wireless-charybdis.png)
 
 ## Keymap
 
