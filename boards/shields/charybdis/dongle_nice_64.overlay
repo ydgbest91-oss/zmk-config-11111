@@ -1,3 +1,4 @@
+/* boards/shields/charybdis/dongle_nice_64.overlay */
 #include "dongle_nice_common.dtsi"
 
 / {
@@ -8,14 +9,18 @@
 
 // I2C for OLED on nice!nano
 &pro_micro_i2c {
-	oled: ssd1306@3c {
-		compatible = "solomon,ssd1306fb";
+    /* [수정] SSD1306 -> SH1106으로 변경 (판매자 스펙 1.3인치) */
+	oled: sh1106@3c {
+		compatible = "sinowealth,sh1106";
 		reg = <0x3c>;
 		width = <128>;
 		height = <64>;
-		segment-offset = <0>;
+        
+        /* [중요] 1.3인치 SH1106은 보통 오프셋 2가 필요합니다 */
+		segment-offset = <2>;
 		page-offset = <0>;
 		display-offset = <0>;
+        
 		multiplex-ratio = <63>;
 		prechargep = <0x22>;
 		// vertical mirror
