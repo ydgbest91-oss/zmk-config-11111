@@ -1,7 +1,14 @@
 /* boards/shields/charybdis/dongle_nice_64.overlay */
 #include "dongle_nice_common.dtsi"
 
-/* ▼ 1. 여기서 핀 번호를 17, 20번으로 강제 고정합니다 (이게 없으면 지지직거림) */
+/* ▼ 핵심: "이 oled가 바로 메인 화면입니다"라고 지정하는 부분 (이게 없어서 에러 남!) */
+/ {
+    chosen {
+        zephyr,display = &oled;
+    };
+};
+
+/* ▼ 1. 핀 번호 설정 (17, 20번 강제 고정) */
 &pinctrl {
     i2c0_default: i2c0_default {
         group1 {
@@ -19,10 +26,9 @@
     };
 };
 
-/* ▼ 2. 1.3인치 화면 드라이버 설정 */
+/* ▼ 2. 화면 드라이버 설정 (SH1106 + 핀 적용) */
 &pro_micro_i2c {
     status = "okay";
-    /* 위에서 만든 핀 설정을 적용 */
     pinctrl-0 = <&i2c0_default>;
     pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
@@ -33,7 +39,7 @@
         width = <128>;
         height = <64>;
         
-        /* 1.3인치는 보통 0 아니면 2입니다. 일단 2로 갑니다 */
+        /* 화면 위치 보정 (지지직거리면 0, 밀리면 2) */
         segment-offset = <2>;
         page-offset = <0>;
         display-offset = <0>;
